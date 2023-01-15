@@ -1,0 +1,12 @@
+/* Define the style of the user interface */
+  
+  #map {
+    float: right;
+    width: 1145px;
+    height: 650px;
+  }
+  #sidebar {
+    float: left;
+    height: 580px
+  }
+  

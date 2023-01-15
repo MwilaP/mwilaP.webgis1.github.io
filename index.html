@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Web-based GIS Editor</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shpjs/1.2.0/shp.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/geojson-extent@0.1.1/index.js"></script>
+
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9" id="map"></div>
+        <div class="col-sm-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Toolbar</h5>
+              <div class="btn-group-vertical">
+                <button class="btn btn-primary" onclick="addLayer()">Add Layer</button>
+                <button class="btn btn-danger" onclick="removeLayer()">Remove Layer</button>
+                <button class="btn btn-info" onclick="prevLayer()">Previous Layer</button>
+                <button class="btn btn-info" onclick="nextLayer()">Next Layer</button>
+                <button class="btn btn-secondary" onclick="importFile()">Import File</button>
+                <button class="btn btn-secondary" onclick="exportFile()">Export File</button>
+                <button class="btn btn-success" onclick="editMode = 'add'" >Add Point</button>
+                <button class="btn btn-warning" onclick="editMode = 'move'" >Move Point</button>
+                <button class="btn btn-danger" onclick="editMode = 'delete'" >Delete Point</button>
+                <button class="btn btn-warning" onclick="editMode = 'split'" >Split Feature</button>
+                <button class="btn btn-primary" onclick="mergeFeatures()">Merge Features</button>
+                <button class="btn btn-info" onclick="queryWithin()">Query Within</button>
+                <button class="btn btn-info" onclick="queryNearest()">Query Nearest</button>
+                <button class="btn btn-secondary" onclick="calculateAreaAndPerimeter()">Calculate Area and Perimeter</button>
+                <button class="btn btn-success" onclick="addRasterLayer()">Add Raster Layer</button>
+                <button class="btn btn-secondary" onclick="mosaicRaster()">Mosaic Raster</button>
+                <button class="btn btn-secondary" onclick="hillshadeRaster()">Hillshade Raster</button>
+                <button class="btn btn-secondary" onclick="slopeAspectRaster()">Slope and Aspect Raster</button>
+                <button class="btn btn-secondary" onclick="NDVIRaster()">NDVI Raster</button>
+                <button class="btn btn-primary" onclick="initializeFirebase()">Initialize Firebase</button>
+                <button class="btn btn-info" onclick="startCollaboration()">Start Collaboration</button>
+                <button class="btn btn-secondary" onclick="runScript()">Run Script</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/map.js "></script>
+</body>
+</html>
