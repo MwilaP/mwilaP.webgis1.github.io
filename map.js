@@ -54,7 +54,7 @@ function importFile() {
           if (file.name.endsWith(".geojson")) {
             var geojson = JSON.parse(reader.result);
             //console.log(geojson.features);
-            points=[];
+            
             
             addGeoJSONToMap(geojson);
           } else if (file.name.endsWith(".shp")) {
@@ -82,22 +82,49 @@ function createCircles (feature, latlng) {
   // Function to add GeoJSON to the map
 function addGeoJSONToMap(geojson) {
     // Create a layer from the GeoJSON data
-    for ( var i=0, len=geojson.features.length; i<len; i++  ){
-      //cond = geojson.features[i].geometry.type;
-      //console.log(cond);
-       if(geojson.features[i].geometry.type ==='Point')
-       {
-         //console.log(geojson.features[i]);
-         var layer = L.geoJSON(geojson, myLayerOptions);
-         
-         
-       }
-       else{
-        var layer = L.geoJSON(geojson);
-
-       }
-      };
-
+    let pointLayer = L.geoJSON(null, {
+      pointToLayer: (feature, latlng) => {
+          return L.circleMarker(latlng, {
+              radius: 1.8,
+              fillColor: "blue",
+              color: "white",
+              weight: 1,
+              opacity: 1,
+              fillOpacity: 0.8
+          });
+      }
+  });
+  let lineLayer = L.geoJSON(null, {
+      style: {
+          "color": "red",
+          "weight": 5,
+          "opacity": 0.65
+      }
+  });
+  let polygonLayer = L.geoJSON(null, {
+      style: {
+          "color": "green",
+          "weight": 2,
+          "fillOpacity": 0.1
+      }
+  });
+  var layer = null;
+  var Cluster = L.markerClusterGroup();
+  geojson.features.forEach((feature) => {
+      if (feature.geometry.type === "Point") {
+          
+          layer = pointLayer.addData(feature);  
+          
+      } else if (feature.geometry.type === "LineString") {
+          layer = lineLayer.addData(feature);
+      } else if (feature.geometry.type === "Polygon") {
+          layer = polygonLayer.addData(feature);
+      }
+  });
+  
+  //pointLayer.addTo(map);
+  //lineLayer.addTo(map);
+  //polygonLayer.addTo(map); 
     //console.log(layer);
 
     // Add the layer to the map
